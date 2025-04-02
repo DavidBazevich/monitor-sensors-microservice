@@ -1,0 +1,4 @@
+rootProject.name = 'monitor-sensors-microservice'
+
+includeBuild 'monitor-sensors-service'
+includeBuild 'statistics-service'

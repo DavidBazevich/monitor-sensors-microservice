@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/monitor-sensors-service" name="MonitorSensors">
+                <projects>
+                  <project path="$PROJECT_DIR$/monitor-sensors-service" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/statistics-service" name="statistics-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/statistics-service" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/monitor-sensors-service" />
+            <option value="$PROJECT_DIR$/statistics-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/monitor-sensors-service/monitoring-statistics-service" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/statistics-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/statistics-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
