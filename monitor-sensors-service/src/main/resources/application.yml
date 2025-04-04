@@ -10,9 +10,17 @@ spring:
         format_sql: true
         hbm2ddl.auto: validate
     open-in-view: false
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 jwt:
   secret-key: 977edd3d588ad6fa15c9a6396e8a1e5136ebc9eeead755557efb1048c5e3aa3e
   expiration: 3600000 #hour
   refresh-token:
     expiration: 86400000 #a day
+
+server:
+  port: 8081

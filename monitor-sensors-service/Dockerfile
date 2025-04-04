@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk-slim
 WORKDIR app
 COPY . .
 RUN ./gradlew bootJar && cp build/libs/*.jar ./monitor-sensors.jar
