@@ -16,7 +16,7 @@ import org.senla.entity.Units;
 import org.senla.repository.SensorsRepository;
 import org.senla.repository.TypeRepository;
 import org.senla.repository.UnitRepository;
-import org.senla.service.SensorService;
+import org.senla.service.SensorServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SensorServiceTest {
+public class SensorServiceImplTest {
 
     @Mock
     private SensorsRepository sensorsRepository;
@@ -39,7 +39,7 @@ public class SensorServiceTest {
     private SensorMapper sensorMapper;
 
     @InjectMocks
-    private SensorService sensorService;
+    private SensorServiceImpl sensorServiceImpl;
 
     private Sensor sensor;
     private SensorDto sensorDto;
@@ -85,7 +85,7 @@ public class SensorServiceTest {
         when(sensorsRepository.findAll()).thenReturn(Collections.singletonList(sensor));
         when(sensorMapper.toSensorDto(sensor)).thenReturn(sensorDto);
 
-        List<SensorDto> result = sensorService.findAllSensor();
+        List<SensorDto> result = sensorServiceImpl.findAllSensor();
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -102,7 +102,7 @@ public class SensorServiceTest {
         when(sensorsRepository.save(sensor)).thenReturn(sensor);
         when(sensorMapper.toSensorDto(sensor)).thenReturn(sensorDto);
 
-        SensorDto result = sensorService.saveSensor(sensorCreateDto);
+        SensorDto result = sensorServiceImpl.saveSensor(sensorCreateDto);
 
         assertNotNull(result);
         assertEquals(sensorDto, result);
@@ -119,7 +119,7 @@ public class SensorServiceTest {
         when(sensorsRepository.save(sensor)).thenReturn(sensor);
         when(sensorMapper.toSensorDto(sensor)).thenReturn(sensorDto);
 
-        SensorDto result = sensorService.updateSensor(1, sensorCreateDto);
+        SensorDto result = sensorServiceImpl.updateSensor(1, sensorCreateDto);
 
         assertNotNull(result);
         assertEquals(sensorDto, result);
@@ -134,7 +134,7 @@ public class SensorServiceTest {
         when(sensorsRepository.findById(1)).thenReturn(Optional.of(sensor));
         when(sensorMapper.toSensorDto(sensor)).thenReturn(sensorDto);
 
-        SensorDto result = sensorService.findById(1);
+        SensorDto result = sensorServiceImpl.findById(1);
 
         assertNotNull(result);
         assertEquals(sensorDto, result);
@@ -147,7 +147,7 @@ public class SensorServiceTest {
     void deleteSensorById() {
         when(sensorsRepository.findById(1)).thenReturn(Optional.of(sensor));
 
-        sensorService.deleteSensorById(1);
+        sensorServiceImpl.deleteSensorById(1);
 
         verify(sensorsRepository, times(1)).findById(1);
         verify(sensorsRepository, times(1)).delete(sensor);

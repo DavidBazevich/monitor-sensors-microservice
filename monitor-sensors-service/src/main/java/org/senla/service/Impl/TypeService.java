@@ -5,7 +5,7 @@ import org.senla.dto.TypeDto;
 
 import java.util.List;
 
-public interface TypeServiceImp {
+public interface TypeService {
     List<TypeDto> findAllTypes();
     TypeDto saveType(TypeCreateDto type);
     TypeDto updateType(Integer id, TypeCreateDto type);

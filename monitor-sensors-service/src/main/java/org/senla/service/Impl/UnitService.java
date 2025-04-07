@@ -5,7 +5,7 @@ import org.senla.dto.UnitDto;
 
 import java.util.List;
 
-public interface UnitServiceImp {
+public interface UnitService {
     List<UnitDto> findAllUnits();
     UnitDto saveUnit(UnitCreateDto type);
     UnitDto updateUnit(Integer id, UnitCreateDto newUnit);

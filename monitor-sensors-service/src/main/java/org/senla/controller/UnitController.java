@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.senla.dto.UnitDto;
 import org.senla.dto.creators.UnitCreateDto;
-import org.senla.service.Impl.UnitServiceImp;
+import org.senla.service.Impl.UnitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 public class UnitController {
 
-    private final UnitServiceImp unitService;
+    private final UnitService unitService;
 
     @GetMapping("/{id}")
     @Operation(summary = "Find by id")

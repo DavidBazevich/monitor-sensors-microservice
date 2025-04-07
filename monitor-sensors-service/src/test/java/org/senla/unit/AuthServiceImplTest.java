@@ -18,7 +18,7 @@ import org.senla.entity.User;
 import org.senla.filter.JwtService;
 import org.senla.repository.TokenRepository;
 import org.senla.repository.UserRepository;
-import org.senla.service.AuthService;
+import org.senla.service.AuthServiceImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AuthServiceTest {
+public class AuthServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
@@ -50,7 +50,7 @@ public class AuthServiceTest {
     private AuthenticationManager authenticationManager;
 
     @InjectMocks
-    private AuthService authService;
+    private AuthServiceImpl authServiceImpl;
 
     private AuthRequest authRequest;
     private RegisterRequest registerRequest;
@@ -78,7 +78,7 @@ public class AuthServiceTest {
         when(jwtService.generateToken(user)).thenReturn("accessToken");
         when(jwtService.generateRefreshToken(user)).thenReturn("refreshToken");
 
-        AuthResponse authResponse = authService.register(registerRequest);
+        AuthResponse authResponse = authServiceImpl.register(registerRequest);
 
         assertEquals("accessToken", authResponse.getAccessToken());
         assertEquals("refreshToken", authResponse.getRefreshToken());
@@ -93,7 +93,7 @@ public class AuthServiceTest {
         when(jwtService.generateToken(user)).thenReturn("accessToken");
         when(jwtService.generateRefreshToken(user)).thenReturn("refreshToken");
 
-        AuthResponse authResponse = authService.authenticate(authRequest);
+        AuthResponse authResponse = authServiceImpl.authenticate(authRequest);
 
         assertEquals("accessToken", authResponse.getAccessToken());
         assertEquals("refreshToken", authResponse.getRefreshToken());
@@ -110,7 +110,7 @@ public class AuthServiceTest {
         when(jwtService.generateToken(user)).thenReturn("newAccessToken");
         when(response.getOutputStream()).thenReturn(outputStream);
 
-        authService.refreshToken(request, response);
+        authServiceImpl.refreshToken(request, response);
 
         verify(jwtService, times(1)).extractUsername("refreshToken");
         verify(userRepository, times(1)).findByName("david");

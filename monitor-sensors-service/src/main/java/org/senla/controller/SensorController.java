@@ -1,20 +1,14 @@
 package org.senla.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.senla.dto.SensorDto;
-import org.senla.dto.SensorStatisticSender;
 import org.senla.dto.creators.SensorCreateDto;
-import org.senla.dto.mapper.StatisticMapper;
-import org.senla.service.Impl.SensorServiceImp;
+import org.senla.service.Impl.SensorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +22,7 @@ import java.util.List;
 @EnableScheduling
 public class SensorController {
 
-    private static final String TOPIC_NAME = "statistics";
-
-    private final StatisticMapper statisticMapper;
-    private final SensorServiceImp sensorService;
-    private final KafkaTemplate<String, String> kafkaTemplate;
-    private final ObjectMapper objectMapper;
+    private final SensorService sensorService;
 
     @GetMapping("/{id}")
     @Operation(summary = "Find by id")
@@ -42,16 +31,8 @@ public class SensorController {
     }
 
     @GetMapping
-    //@Scheduled(cron = "0 0 2 * * ?")
-    @Scheduled(cron = "0 */1 * * * *")
-    public ResponseEntity<List<SensorDto>> findAllSensor() throws JsonProcessingException {
-        kafkaTemplate.send(TOPIC_NAME, sendMessage());
+    public ResponseEntity<List<SensorDto>> findAllSensor() {
         return new ResponseEntity<>(sensorService.findAllSensor(), HttpStatus.OK);
-    }
-
-    private String sendMessage() throws JsonProcessingException {
-        List<SensorStatisticSender> sensorStatisticSenders = statisticMapper.toSensorStatisticSenderList(sensorService.findAllSensor());
-        return objectMapper.writeValueAsString(sensorStatisticSenders);
     }
 
     @PostMapping("/save")

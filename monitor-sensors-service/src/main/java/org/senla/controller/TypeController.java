@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.senla.dto.TypeDto;
 import org.senla.dto.creators.TypeCreateDto;
-import org.senla.service.Impl.TypeServiceImp;
+import org.senla.service.Impl.TypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.List;
 @SecurityRequirement(name = "bearerAuth")
 public class TypeController {
 
-    private final TypeServiceImp typeService;
+    private final TypeService typeService;
 
     @GetMapping("/{id}")
     @Operation(summary = "Find by id")

@@ -7,7 +7,7 @@ import org.senla.dto.mapper.TypeMapper;
 import org.senla.entity.Type;
 import org.senla.exception.ResourceNotFoundException;
 import org.senla.repository.TypeRepository;
-import org.senla.service.Impl.TypeServiceImp;
+import org.senla.service.Impl.TypeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
-public class TypeService implements TypeServiceImp {
+public class TypeServiceImpl implements TypeService {
 
     private final TypeRepository typeRepository;
     private final TypeMapper typeMapper;

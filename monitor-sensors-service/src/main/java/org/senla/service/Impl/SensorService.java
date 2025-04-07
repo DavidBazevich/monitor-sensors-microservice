@@ -5,7 +5,7 @@ import org.senla.dto.SensorDto;
 
 import java.util.List;
 
-public interface SensorServiceImp {
+public interface SensorService {
     List<SensorDto> findAllSensor();
     SensorDto saveSensor(SensorCreateDto sensor);
     SensorDto updateSensor(Integer id, SensorCreateDto sensor);

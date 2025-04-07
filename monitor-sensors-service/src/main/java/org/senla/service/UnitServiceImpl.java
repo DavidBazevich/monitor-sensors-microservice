@@ -7,7 +7,7 @@ import org.senla.dto.mapper.UnitMapper;
 import org.senla.entity.Units;
 import org.senla.exception.ResourceNotFoundException;
 import org.senla.repository.UnitRepository;
-import org.senla.service.Impl.UnitServiceImp;
+import org.senla.service.Impl.UnitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UnitService implements UnitServiceImp {
+public class UnitServiceImpl implements UnitService {
 
     private final UnitRepository unitRepository;
     private final UnitMapper unitMapper;

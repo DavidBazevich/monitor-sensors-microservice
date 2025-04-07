@@ -26,6 +26,7 @@ public class StatisticsService implements StatisticServiceImp {
     private final ObjectMapper objectMapper;
     private final StatisticMapper statisticMapper;
 
+
     @KafkaListener(topics = "statistics", groupId = "group")
     public void save(String sensors) throws JsonProcessingException {
         List<SensorStatisticSender> sensorList = objectMapper.readValue(sensors,

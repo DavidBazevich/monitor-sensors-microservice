@@ -13,7 +13,7 @@ import org.senla.dto.mapper.TypeMapper;
 import org.senla.entity.Type;
 import org.senla.exception.ResourceNotFoundException;
 import org.senla.repository.TypeRepository;
-import org.senla.service.TypeService;
+import org.senla.service.TypeServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TypeServiceTest {
+public class TypeServiceImplTest {
 
     @Mock
     private TypeRepository typeRepository;
@@ -31,7 +31,7 @@ public class TypeServiceTest {
     private TypeMapper typeMapper;
 
     @InjectMocks
-    private TypeService typeService;
+    private TypeServiceImpl typeServiceImpl;
 
     private Type type;
     private TypeDto typeDto;
@@ -53,7 +53,7 @@ public class TypeServiceTest {
         when(typeRepository.findAll()).thenReturn(Collections.singletonList(type));
         when(typeMapper.toTypeDto(type)).thenReturn(typeDto);
 
-        List<TypeDto> result = typeService.findAllTypes();
+        List<TypeDto> result = typeServiceImpl.findAllTypes();
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -69,7 +69,7 @@ public class TypeServiceTest {
         when(typeRepository.save(type)).thenReturn(type);
         when(typeMapper.toTypeDto(type)).thenReturn(typeDto);
 
-        TypeDto result = typeService.saveType(typeCreateDto);
+        TypeDto result = typeServiceImpl.saveType(typeCreateDto);
 
         assertNotNull(result);
         assertEquals(typeDto, result);
@@ -85,7 +85,7 @@ public class TypeServiceTest {
         when(typeRepository.save(type)).thenReturn(type);
         when(typeMapper.toTypeDto(type)).thenReturn(typeDto);
 
-        TypeDto result = typeService.updateType(1, typeCreateDto);
+        TypeDto result = typeServiceImpl.updateType(1, typeCreateDto);
 
         assertNotNull(result);
         assertEquals(typeDto, result);
@@ -100,7 +100,7 @@ public class TypeServiceTest {
         when(typeRepository.findById(1)).thenReturn(Optional.of(type));
         when(typeMapper.toTypeDto(type)).thenReturn(typeDto);
 
-        TypeDto result = typeService.findById(1);
+        TypeDto result = typeServiceImpl.findById(1);
 
         assertNotNull(result);
         assertEquals(typeDto, result);
@@ -113,7 +113,7 @@ public class TypeServiceTest {
     void deleteTypeById() {
         when(typeRepository.findById(1)).thenReturn(Optional.of(type));
 
-        typeService.deleteTypeById(1);
+        typeServiceImpl.deleteTypeById(1);
 
         verify(typeRepository, times(1)).findById(1);
         verify(typeRepository, times(1)).delete(type);
@@ -125,7 +125,7 @@ public class TypeServiceTest {
         void updateType() {
             when(typeRepository.findById(1)).thenReturn(Optional.empty());
 
-            assertThrows(ResourceNotFoundException.class, () -> typeService.updateType(1, typeCreateDto));
+            assertThrows(ResourceNotFoundException.class, () -> typeServiceImpl.updateType(1, typeCreateDto));
 
             verify(typeRepository, times(1)).findById(1);
         }
@@ -134,7 +134,7 @@ public class TypeServiceTest {
         void findById() {
             when(typeRepository.findById(1)).thenReturn(Optional.empty());
 
-            assertThrows(ResourceNotFoundException.class, () -> typeService.findById(1));
+            assertThrows(ResourceNotFoundException.class, () -> typeServiceImpl.findById(1));
 
             verify(typeRepository, times(1)).findById(1);
         }
@@ -142,7 +142,7 @@ public class TypeServiceTest {
         void deleteTypeById() {
             when(typeRepository.findById(1)).thenReturn(Optional.empty());
 
-            assertThrows(ResourceNotFoundException.class, () -> typeService.deleteTypeById(1));
+            assertThrows(ResourceNotFoundException.class, () -> typeServiceImpl.deleteTypeById(1));
 
             verify(typeRepository, times(1)).findById(1);
         }

@@ -12,7 +12,7 @@ import org.senla.entity.User;
 import org.senla.filter.JwtService;
 import org.senla.repository.TokenRepository;
 import org.senla.repository.UserRepository;
-import org.senla.service.Impl.AuthServiceImpl;
+import org.senla.service.Impl.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +23,7 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService implements AuthServiceImpl {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;

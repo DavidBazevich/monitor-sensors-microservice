@@ -9,5 +9,5 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StatisticMapper {
-    List<SensorStatisticSender>  toSensorStatisticSenderList(List<SensorDto> sensorDto);
+    SensorStatisticSender toSensorStatisticSenderList(SensorDto sensorDto);
 }

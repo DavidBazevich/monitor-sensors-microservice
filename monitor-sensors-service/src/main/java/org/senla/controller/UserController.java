@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.senla.dto.AuthRequest;
 import org.senla.dto.RegisterRequest;
 import org.senla.handler.JwtResponseHandler;
-import org.senla.service.Impl.AuthServiceImpl;
+import org.senla.service.Impl.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final AuthServiceImpl authService;
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody @Valid RegisterRequest registerRequest) {

@@ -14,7 +14,7 @@ import org.senla.dto.mapper.UnitMapper;
 import org.senla.entity.Units;
 import org.senla.exception.ResourceNotFoundException;
 import org.senla.repository.UnitRepository;
-import org.senla.service.UnitService;
+import org.senla.service.UnitServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Тесты для UnitService")
-public class UnitServiceTest {
+public class UnitServiceImplTest {
 
     @Mock
     private UnitRepository unitRepository;
@@ -33,7 +33,7 @@ public class UnitServiceTest {
     private UnitMapper unitMapper;
 
     @InjectMocks
-    private UnitService unitService;
+    private UnitServiceImpl unitServiceImpl;
 
     private Units unit;
     private UnitDto unitDto;
@@ -55,7 +55,7 @@ public class UnitServiceTest {
         when(unitRepository.findAll()).thenReturn(Collections.singletonList(unit));
         when(unitMapper.toUnitDto(unit)).thenReturn(unitDto);
 
-        List<UnitDto> result = unitService.findAllUnits();
+        List<UnitDto> result = unitServiceImpl.findAllUnits();
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -71,7 +71,7 @@ public class UnitServiceTest {
         when(unitRepository.save(unit)).thenReturn(unit);
         when(unitMapper.toUnitDto(unit)).thenReturn(unitDto);
 
-        UnitDto result = unitService.saveUnit(unitCreateDto);
+        UnitDto result = unitServiceImpl.saveUnit(unitCreateDto);
 
         assertNotNull(result);
         assertEquals(unitDto, result);
@@ -87,7 +87,7 @@ public class UnitServiceTest {
         when(unitRepository.save(unit)).thenReturn(unit);
         when(unitMapper.toUnitDto(unit)).thenReturn(unitDto);
 
-        UnitDto result = unitService.updateUnit(1, unitCreateDto);
+        UnitDto result = unitServiceImpl.updateUnit(1, unitCreateDto);
 
         assertNotNull(result);
         assertEquals(unitDto, result);
@@ -102,7 +102,7 @@ public class UnitServiceTest {
         when(unitRepository.findById(1)).thenReturn(Optional.of(unit));
         when(unitMapper.toUnitDto(unit)).thenReturn(unitDto);
 
-        UnitDto result = unitService.findById(1);
+        UnitDto result = unitServiceImpl.findById(1);
 
         assertNotNull(result);
         assertEquals(unitDto, result);
@@ -115,7 +115,7 @@ public class UnitServiceTest {
     void deleteTypeById() {
         when(unitRepository.findById(1)).thenReturn(Optional.of(unit));
 
-        unitService.deleteUnitById(1);
+        unitServiceImpl.deleteUnitById(1);
 
         verify(unitRepository, times(1)).findById(1);
         verify(unitRepository, times(1)).delete(unit);
@@ -128,7 +128,7 @@ public class UnitServiceTest {
         void updateType() {
             when(unitRepository.findById(1)).thenReturn(Optional.empty());
 
-            assertThrows(ResourceNotFoundException.class, () -> unitService.updateUnit(1, unitCreateDto));
+            assertThrows(ResourceNotFoundException.class, () -> unitServiceImpl.updateUnit(1, unitCreateDto));
 
             verify(unitRepository, times(1)).findById(1);
         }
@@ -137,7 +137,7 @@ public class UnitServiceTest {
         void findById() {
             when(unitRepository.findById(1)).thenReturn(Optional.empty());
 
-            assertThrows(ResourceNotFoundException.class, () -> unitService.findById(1));
+            assertThrows(ResourceNotFoundException.class, () -> unitServiceImpl.findById(1));
 
             verify(unitRepository, times(1)).findById(1);
         }
@@ -145,7 +145,7 @@ public class UnitServiceTest {
         void deleteTypeById() {
             when(unitRepository.findById(1)).thenReturn(Optional.empty());
 
-            assertThrows(ResourceNotFoundException.class, () -> unitService.deleteUnitById(1));
+            assertThrows(ResourceNotFoundException.class, () -> unitServiceImpl.deleteUnitById(1));
 
             verify(unitRepository, times(1)).findById(1);
         }
