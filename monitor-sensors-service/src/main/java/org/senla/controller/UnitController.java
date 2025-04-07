@@ -22,7 +22,7 @@ public class UnitController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Find by id")
-    public ResponseEntity<UnitDto> findById(@PathVariable Integer id){
+    public ResponseEntity<UnitDto> findById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(unitService.findById(id));
     }
 
@@ -37,13 +37,13 @@ public class UnitController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UnitDto> updateUnit(@PathVariable Integer id,
+    public ResponseEntity<UnitDto> updateUnit(@PathVariable("id") Integer id,
                                               @RequestBody UnitCreateDto newUnit){
        return ResponseEntity.ok(unitService.updateUnit(id, newUnit));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUnit(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteUnit(@PathVariable("id") Integer id){
         unitService.deleteUnitById(id);
         return ResponseEntity.noContent().build();
     }
