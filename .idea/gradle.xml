@@ -20,8 +20,11 @@
             </builds>
           </compositeBuild>
         </compositeConfiguration>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="" />
+        <option name="gradleHome" value="C:/Tools/Gradle/gradle-8.13" />
+        <option name="gradleJvm" value="jbr-17" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -29,12 +32,18 @@
             <option value="$PROJECT_DIR$/statistics-service" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="true" />
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/monitor-sensors-service/monitoring-statistics-service" />
+        <option name="gradleHome" value="C:/Tools/Gradle/gradle-8.13" />
+        <option name="gradleJvm" value="corretto-17" />
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/statistics-service" />
+        <option name="gradleHome" value="C:/Tools/Gradle/gradle-8.13" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/statistics-service" />
