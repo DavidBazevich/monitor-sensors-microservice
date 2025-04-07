@@ -37,3 +37,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
     annotationProcessor 'org.projectlombok:lombok'
 }
+
+tasks.named("jar") {
+    enabled = false
+}

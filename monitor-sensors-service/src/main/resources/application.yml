@@ -12,7 +12,7 @@ spring:
     open-in-view: false
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
@@ -21,6 +21,3 @@ jwt:
   expiration: 3600000 #hour
   refresh-token:
     expiration: 86400000 #a day
-
-server:
-  port: 8081

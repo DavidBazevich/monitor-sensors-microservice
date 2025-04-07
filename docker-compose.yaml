@@ -10,17 +10,24 @@ services:
       - POSTGRES_DB=sensors
     ports:
       - "5433:5432"
+    networks:
+      - microservices-net
+
   sensor_service:
     restart: always
     build:
       context: monitor-sensors-service
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8084:8080"
     depends_on:
       - db_sensors
+      - kafka
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://db_sensors:5433/sensors'
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://db_sensors:5432/sensors'
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 'kafka:29092'
+    networks:
+      - microservices-net
 
   db_statistics:
     image: postgres
@@ -31,6 +38,8 @@ services:
       - POSTGRES_DB=statistics
     ports:
       - "5434:5432"
+    networks:
+      - microservices-net
 
   statistics_service:
     restart: always
@@ -38,11 +47,16 @@ services:
       context: statistics-service
       dockerfile: Dockerfile
     ports:
-      - "8081:8080"
+      - "8085:8888"
     depends_on:
       - db_statistics
+      - sensor_service
+      - kafka
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://db_statistics:5434/statistics'
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://db_statistics:5432/statistics'
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 'kafka:29092'
+    networks:
+      - microservices-net
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
