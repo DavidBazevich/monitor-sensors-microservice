@@ -1,9 +1,14 @@
 package org.senla.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.senla.dto.SensorDto;
+import org.senla.dto.SensorStatisticSender;
 import org.senla.dto.creators.SensorCreateDto;
 import org.senla.dto.mapper.SensorMapper;
+import org.senla.dto.mapper.StatisticMapper;
 import org.senla.entity.Sensor;
 import org.senla.entity.Type;
 import org.senla.entity.Units;
@@ -11,7 +16,9 @@ import org.senla.exception.ResourceNotFoundException;
 import org.senla.repository.SensorsRepository;
 import org.senla.repository.TypeRepository;
 import org.senla.repository.UnitRepository;
-import org.senla.service.Impl.SensorServiceImp;
+import org.senla.service.Impl.SensorService;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +28,18 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class SensorService implements SensorServiceImp {
+@Slf4j
+public class SensorServiceImpl implements SensorService {
+
+    private static final String TOPIC_NAME = "statistics";
 
     private final SensorsRepository sensorsRepository;
     private final TypeRepository typeRepository;
     private final UnitRepository unitRepository;
     private final SensorMapper sensorMapper;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final ObjectMapper objectMapper;
+    private final StatisticMapper statisticMapper;
 
     @Override
     public List<SensorDto> findAllSensor() {
@@ -95,5 +108,24 @@ public class SensorService implements SensorServiceImp {
     private Type findTypeByName(SensorCreateDto newSensor) {
         return typeRepository.findByName(newSensor.getType())
                 .orElseThrow(() -> new ResourceNotFoundException("Type not found with name: " + newSensor.getType()));
+    }
+
+    @Scheduled(cron = "0 */1 * * * *")
+    public void sendMonitorStatistic() {
+        kafkaTemplate.send(TOPIC_NAME, sendMessage());
+    }
+
+    private String sendMessage()  {
+        List<SensorStatisticSender> send = sensorsRepository.findAll()
+                .stream()
+                .map(sensorMapper::toSensorDto)
+                .map(statisticMapper::toSensorStatisticSenderList)
+                .toList();
+        try {
+            return objectMapper.writeValueAsString(send);
+        } catch (JsonProcessingException e){
+            log.error("Serialization error of the object in the String: ".concat(e.getMessage()));
+        }
+        return null;
     }
 }
