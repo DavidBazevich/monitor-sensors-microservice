@@ -26,8 +26,7 @@ public class UnitControllerIT extends ITBase{
 
     @Autowired
     private ObjectMapper objectMapper;
-    //todo валидация на range 403 выводит
-    //todo Тесты
+
     @Test
     void saveUnitTest() throws Exception{
         UnitCreateDto unitCreateDto = new UnitCreateDto("Unit example");
