@@ -8,18 +8,20 @@
 - **Spring Boot**
 - **Spring Data JPA**
 - **Spring Security (JWT-base)**
-- **Hibernate**
-- **PostgreSQL**
-- **Swagger (OpenAPI)**
-- **MapStruct**
-- **Lombok**
-- **Apache Kafka**
-- **Docker & Docker Compose**
+- **Hibernate** - ORM framework
+- **PostgreSQL** - database
+- **Swagger (OpenAPI)** - documentation
+- **MapStruct** - for mapping between dto
+- **Lombok** - generate boilerplate code
+- **Apache Kafka** - message broker 
+- **Docker & Docker Compose** - deploy
+- **JUnit 5, Testcontainers** - IT and Unit testing
 
 ## Description
 
 The application provides a REST API for working with _**sensors**_, such as Pressure, Temperature, Humidity and others. Sensors data are stored in a relational database and can be viewed or changed by a user with appropriate rights. 
-Services of sensors and statistics communicate with each other using **_Apache Kafka_**
+Services of sensors and statistics communicate with each other using **_Apache Kafka_**.
+Implemented integration and unit testing for one of the services.
 
 ### Main functionality:
 
