@@ -1,6 +1,7 @@
 package org.senla.IT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.senla.dto.creators.UnitCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class UnitControllerIT extends ITBase{
     private ObjectMapper objectMapper;
 
     @Test
+    @DisplayName("Save unit, will return response UnitDto")
     void saveUnitTest() throws Exception{
         UnitCreateDto unitCreateDto = new UnitCreateDto("Unit example");
 
@@ -39,6 +41,7 @@ public class UnitControllerIT extends ITBase{
     }
 
     @Test
+    @DisplayName("Get unit by ID, will return response UnitDto")
     void getUnitByIdTest() throws Exception {
         mockMvc.perform(get("/api/v1/unit/3"))
                 .andExpect(status().isOk())
@@ -46,6 +49,7 @@ public class UnitControllerIT extends ITBase{
     }
 
     @Test
+    @DisplayName("Get all units, will return List<UnitDto>")
     void getUnitsTest() throws Exception {
         mockMvc.perform(get("/api/v1/unit"))
                 .andExpect(status().isOk())
@@ -53,6 +57,7 @@ public class UnitControllerIT extends ITBase{
     }
 
     @Test
+    @DisplayName("Update unit by ID, will return UnitDto")
     void updateUnitTest() throws Exception{
         UnitCreateDto newUnit = new UnitCreateDto("Unit the second example");
 
@@ -64,6 +69,7 @@ public class UnitControllerIT extends ITBase{
     }
 
     @Test
+    @DisplayName("Delete unit by ID, will return http status NO CONTENT")
     void deleteUnitTest() throws Exception {
         mockMvc.perform(delete("/api/v1/unit/1"))
                 .andExpect(status().isNoContent());
